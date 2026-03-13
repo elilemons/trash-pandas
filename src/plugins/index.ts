@@ -9,12 +9,12 @@ import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
 import { FixedToolbarFeature, HeadingFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 import { searchFields } from '@/search/fieldOverrides'
 import { beforeSyncWithSearch } from '@/search/beforeSync'
-
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { Page, Post } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
 
 const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
-  return doc?.title ? `${doc.title} | Payload Website Template` : 'Payload Website Template'
+  return doc?.title ? `${doc.title} | Gambler 500 Trash Pandas` : 'Gambler 500 Trash Pandas'
 }
 
 const generateURL: GenerateURL<Post | Page> = ({ doc }) => {
@@ -89,4 +89,13 @@ export const plugins: Plugin[] = [
       },
     },
   }),
+  vercelBlobStorage({
+      enabled: true, // Optional, defaults to true
+      // Specify which collections should use Vercel Blob
+      collections: {
+        media: true,
+      },
+      // Token provided by Vercel once Blob storage is added to your Vercel project
+      token: process.env.BLOB_READ_WRITE_TOKEN,
+    }),
 ]
